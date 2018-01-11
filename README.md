@@ -9,3 +9,11 @@ To generate the encrypted value for encPassword in the Postman environment, run 
 Paste the output into the Postman environment variable encPassword
 
 Note: This is not a secure password store as the JS script needs to know the pass used to encrypt the password. It will help prevent passby eyes only password theft
+
+### Configuring Postman
+
+* Create a new environment
+* Add the below variables to the environment;
+
+![alt text](https://github.com/StuartMule/strangelove/blob/master/PostmanEnvVariables.png "Postman variable requirements")
+* Import the collection
