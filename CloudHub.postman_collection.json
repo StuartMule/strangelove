@@ -58,7 +58,7 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "StuartMule",
+							"value": "{{clearUsername}}",
 							"description": "",
 							"type": "text"
 						},
