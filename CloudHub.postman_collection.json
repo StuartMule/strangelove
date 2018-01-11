@@ -1,0 +1,395 @@
+{
+	"info": {
+		"name": "CloudHub",
+		"_postman_id": "c68739f5-77c8-47ee-a99c-4a8f0bd5af7e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get AnypointPlatform Access Token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e4c39d98-053d-47cd-ad08-20d8feff4312",
+						"type": "text/javascript",
+						"exec": [
+							"console.log('baseurl that will be used is ' + postman.getEnvironmentVariable('baseURL'));",
+							"",
+							"//var ciphertext = CryptoJS.AES.encrypt('password', 'secret key 123');",
+							"//postman.setEnvironmentVariable('encPassword', ciphertext.toString());",
+							"",
+							"var bytes  = CryptoJS.AES.decrypt(postman.getEnvironmentVariable('encPassword'), 'secret key 123');",
+							"var plaintext = bytes.toString(CryptoJS.enc.Utf8);",
+							"postman.setEnvironmentVariable('password', plaintext);",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "26c87908-dc13-4315-9e09-af336f86b7d3",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"// Remove the plaintext password from the environment",
+							"postman.clearEnvironmentVariable('password');",
+							"",
+							"var jsonResponse = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"accessToken\", jsonResponse.access_token);",
+							"//console.log('access token: ' + jsonResponse.access_token);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "StuartMule",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseURL}}/accounts/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"accounts",
+						"login"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get My Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59d1b3ce-6755-4bba-a978-c834862f9247",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonResponse = JSON.parse(responseBody);",
+							"//console.log('Org Name: ' + jsonResponse.user.organization.name);",
+							"//postman.setEnvironmentVariable(\"orgID\", jsonResponse.user.organization.id);",
+							"",
+							"// Create a Postman env variable for each CH env",
+							"jsonResponse.user.memberOfOrganizations.forEach(function (orgDetails) {",
+							"//    console.log('Org:' + orgDetails.name);",
+							"    postman.setEnvironmentVariable(orgDetails.name+\"OrgID\", orgDetails.id);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{baseURL}}/accounts/api/me",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"accounts",
+						"api",
+						"me"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Environment Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "040e13ee-1cbe-4b07-b9d0-354aa684ebb3",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonResponse = JSON.parse(responseBody);",
+							"",
+							"// Create a Postman env variable for each CH env",
+							"jsonResponse.data.forEach(function (envDetails) {",
+							"//    console.log('Env:' + envDetails.name);",
+							"    postman.setEnvironmentVariable(envDetails.name+\"EnvID\", envDetails.id);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{baseURL}}/accounts/api/organizations/{{MyMulesoftTestOrgOrgID}}/environments",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"accounts",
+						"api",
+						"organizations",
+						"{{MyMulesoftTestOrgOrgID}}",
+						"environments"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "List API's for my Org",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8cdc8287-e3cc-4b39-86ae-3c74c6b117dc",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonResponse = JSON.parse(responseBody);",
+							"",
+							"// Create a Postman env variable for each API name",
+							"jsonResponse.apis.forEach(function (apiDetails) {",
+							"    //console.log('Env:' + apiDetails.name);",
+							"    postman.setEnvironmentVariable(apiDetails.name, apiDetails.id);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{baseURL}}/apiplatform/repository/v2/organizations/{{MyMulesoftTestOrgOrgID}}/apis",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"apiplatform",
+						"repository",
+						"v2",
+						"organizations",
+						"{{MyMulesoftTestOrgOrgID}}",
+						"apis"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Show API version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonResponse = JSON.parse(responseBody);",
+							"console.log('version: ' + jsonResponse.versions[0].id);",
+							"postman.setEnvironmentVariable(\"apiVersionId\", jsonResponse.versions[0].id);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{baseURL}}/apiplatform/repository/v2/organizations/{{MyMulesoftTestOrgOrgID}}/apis/{{Rest API Demo}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"apiplatform",
+						"repository",
+						"v2",
+						"organizations",
+						"{{MyMulesoftTestOrgOrgID}}",
+						"apis",
+						"{{Rest API Demo}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Show API details for the version",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{baseURL}}/apiplatform/repository/v2/organizations/{{MyMulesoftTestOrgOrgID}}/apis/{{Rest API Demo}}/versions/{{apiVersionId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"apiplatform",
+						"repository",
+						"v2",
+						"organizations",
+						"{{MyMulesoftTestOrgOrgID}}",
+						"apis",
+						"{{Rest API Demo}}",
+						"versions",
+						"{{apiVersionId}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Show files for the API version",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{baseURL}}/apiplatform/repository/v2/organizations/{{MyMulesoftTestOrgOrgID}}/apis/{{Rest API Demo}}/versions/{{apiVersionId}}/files",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"apiplatform",
+						"repository",
+						"v2",
+						"organizations",
+						"{{MyMulesoftTestOrgOrgID}}",
+						"apis",
+						"{{Rest API Demo}}",
+						"versions",
+						"{{apiVersionId}}",
+						"files"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Gets logs for an App (v2)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04464bc7-d0a6-429c-b0ce-80a159f2790e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "X-ANYPNT-ENV-ID",
+						"value": "{{SandboxEnvID}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"startTime\":0}"
+				},
+				"url": {
+					"raw": "{{baseURL}}/cloudhub/api/v2/applications/00181796-sample/logs",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"cloudhub",
+						"api",
+						"v2",
+						"applications",
+						"00181796-sample",
+						"logs"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
