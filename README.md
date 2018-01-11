@@ -1,4 +1,3 @@
--rw-r--r--  1 stuartroberts  staff  8879 11 Jan 17:14 CloudHub.postman_collection.json
 # strangelove
 Postman collection for easy Mulesoft CH API use
 
