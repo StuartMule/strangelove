@@ -12,15 +12,15 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "e4c39d98-053d-47cd-ad08-20d8feff4312",
+						"id": "2fce0e3f-266b-48f7-8aed-da23044e66f8",
 						"type": "text/javascript",
 						"exec": [
 							"console.log('baseurl that will be used is ' + postman.getEnvironmentVariable('baseURL'));",
 							"",
-							"//var ciphertext = CryptoJS.AES.encrypt('password', 'secret key 123');",
+							"//var ciphertext = CryptoJS.AES.encrypt('password', postman.getEnvironmentVariable('RSAKey'));",
 							"//postman.setEnvironmentVariable('encPassword', ciphertext.toString());",
 							"",
-							"var bytes  = CryptoJS.AES.decrypt(postman.getEnvironmentVariable('encPassword'), 'secret key 123');",
+							"var bytes  = CryptoJS.AES.decrypt(postman.getEnvironmentVariable('encPassword'), postman.getEnvironmentVariable('RSAKey'));",
 							"var plaintext = bytes.toString(CryptoJS.enc.Utf8);",
 							"postman.setEnvironmentVariable('password', plaintext);",
 							""
@@ -336,6 +336,52 @@
 					]
 				},
 				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Gets CH Apps",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04464bc7-d0a6-429c-b0ce-80a159f2790e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}"
+					},
+					{
+						"key": "X-ANYPNT-ENV-ID",
+						"value": "{{SandboxEnvID}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"startTime\":0}"
+				},
+				"url": {
+					"raw": "{{baseURL}}/cloudhub/api/v2/applications",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"cloudhub",
+						"api",
+						"v2",
+						"applications"
+					]
+				},
+				"description": null
 			},
 			"response": []
 		},
