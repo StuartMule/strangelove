@@ -17,3 +17,8 @@ Note: This is not a secure password store as the JS script needs to know the pas
 
 ![alt text](https://github.com/StuartMule/strangelove/blob/master/PostmanEnvVariables.png "Postman variable requirements")
 * Import the collection
+
+### Usage
+
+* To get a access token run the 'Get AnypointPlatform Access Token' request. This uses you username and password variables to retrieve an access token which is set as an environment variable and used in the Authorization header for further requests.
+* Run the 'Get My Details' request. This will set environment variables for all the environments in your org. For example, if you have a Sandbox environment, a variable named SandboxEnvID will be created. This allows you to refer to this environment in future requests by variable rather than UUID, i.e. {{SandboxEnvID}} rather than cba9ad04-c39a-4f92-91fe-aa35d5cd2e48.
