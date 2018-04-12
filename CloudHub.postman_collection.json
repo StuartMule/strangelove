@@ -1,11 +1,328 @@
 {
 	"info": {
-		"name": "CloudHub",
 		"_postman_id": "c68739f5-77c8-47ee-a99c-4a8f0bd5af7e",
-		"description": "",
+		"name": "CloudHub",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "ARM",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Cloudhub Applications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "X-ANYPNT-ORG-ID",
+								"value": "{{MyMulesoftTestOrgOrgID}}"
+							},
+							{
+								"key": "X-ANYPNT-ENV-ID",
+								"value": "{{SandboxEnvID}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{baseURL}}/cloudhub/api/applications",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cloudhub",
+								"api",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cloudhub Application status (started/stopped)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "X-ANYPNT-ORG-ID",
+								"value": "{{MyMulesoftTestOrgOrgID}}"
+							},
+							{
+								"key": "X-ANYPNT-ENV-ID",
+								"value": "{{SandboxEnvID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"desiredStatus\": \"STOPPED\"\n}"
+						},
+						"url": {
+							"raw": "{{baseURL}}/cloudhub/api/applications/00183499-oomgen/status",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cloudhub",
+								"api",
+								"applications",
+								"00183499-oomgen",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stop Cloudhub Application",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "X-ANYPNT-ORG-ID",
+								"value": "{{MyMulesoftTestOrgOrgID}}"
+							},
+							{
+								"key": "X-ANYPNT-ENV-ID",
+								"value": "{{SandboxEnvID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"START\"\n}"
+						},
+						"url": {
+							"raw": "{{baseURL}}/cloudhub/api/applications/00183499-oomgen?status?_=1516368923769",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"cloudhub",
+								"api",
+								"applications",
+								"00183499-oomgen"
+							],
+							"query": [
+								{
+									"key": "status?_",
+									"value": "1516368923769"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Anypoint MQ Statistics",
+			"description": "",
+			"item": [
+				{
+					"name": "Organizations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/mq/admin/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/cba9ad04-c39a-4f92-91fe-aa35d5cd2e48/regions",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"mq",
+								"admin",
+								"api",
+								"v1",
+								"organizations",
+								"{{MyMulesoftTestOrgOrgID}}",
+								"environments",
+								"cba9ad04-c39a-4f92-91fe-aa35d5cd2e48",
+								"regions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Regions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/mq/admin/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/cba9ad04-c39a-4f92-91fe-aa35d5cd2e48/regions",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"mq",
+								"admin",
+								"api",
+								"v1",
+								"organizations",
+								"{{MyMulesoftTestOrgOrgID}}",
+								"environments",
+								"cba9ad04-c39a-4f92-91fe-aa35d5cd2e48",
+								"regions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Destinations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/mq/admin/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/regions/us-east-1/destinations",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"mq",
+								"admin",
+								"api",
+								"v1",
+								"organizations",
+								"{{MyMulesoftTestOrgOrgID}}",
+								"environments",
+								"{{SandboxEnvID}}",
+								"regions",
+								"us-east-1",
+								"destinations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stats-1",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/mq/stats/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/regions/us-east-1/queues?destinationIds=myMQ",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"mq",
+								"stats",
+								"api",
+								"v1",
+								"organizations",
+								"{{MyMulesoftTestOrgOrgID}}",
+								"environments",
+								"{{SandboxEnvID}}",
+								"regions",
+								"us-east-1",
+								"queues"
+							],
+							"query": [
+								{
+									"key": "destinationIds",
+									"value": "myMQ"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stats-2",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://anypoint.mulesoft.com/mq/stats/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/regions/us-east-1/queues/Leverage.NGOTC.Claim.Req.LE",
+							"protocol": "https",
+							"host": [
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"mq",
+								"stats",
+								"api",
+								"v1",
+								"organizations",
+								"{{MyMulesoftTestOrgOrgID}}",
+								"environments",
+								"{{SandboxEnvID}}",
+								"regions",
+								"us-east-1",
+								"queues",
+								"Leverage.NGOTC.Claim.Req.LE"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Get AnypointPlatform Access Token",
 			"event": [
@@ -79,8 +396,7 @@
 						"accounts",
 						"login"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -126,8 +442,7 @@
 						"api",
 						"me"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -177,8 +492,7 @@
 						"{{MyMulesoftTestOrgOrgID}}",
 						"environments"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -225,8 +539,50 @@
 						"{{MyMulesoftTestOrgOrgID}}",
 						"apis"
 					]
-				},
-				"description": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show API statistics",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77500c73-76dd-445f-99ab-0e242e6e07bd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}"
+					},
+					{
+						"key": "X-ANYPNT-ENV-ID",
+						"value": "{{SandboxEnvID}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{baseURL}}/cloudhub/api/applications/00183499-oomgen/statistics",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"cloudhub",
+						"api",
+						"applications",
+						"00183499-oomgen",
+						"statistics"
+					]
+				}
 			},
 			"response": []
 		},
@@ -269,8 +625,7 @@
 						"apis",
 						"{{Rest API Demo}}"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -301,8 +656,7 @@
 						"versions",
 						"{{apiVersionId}}"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -334,8 +688,7 @@
 						"{{apiVersionId}}",
 						"files"
 					]
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -380,8 +733,7 @@
 						"v2",
 						"applications"
 					]
-				},
-				"description": null
+				}
 			},
 			"response": []
 		},
@@ -432,8 +784,63 @@
 						"00181796-sample",
 						"logs"
 					]
-				},
-				"description": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Org Details (with search)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "040e13ee-1cbe-4b07-b9d0-354aa684ebb3",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonResponse = JSON.parse(responseBody);",
+							"",
+							"// Create a Postman env variable for each CH env",
+							"jsonResponse.data.forEach(function (envDetails) {",
+							"//    console.log('Env:' + envDetails.name);",
+							"    postman.setEnvironmentVariable(envDetails.name+\"EnvID\", envDetails.id);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{accessToken}}"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{baseURL}}/accounts/api/organizations/{{MyMulesoftTestOrgOrgID}}/environments?search=Sandbox",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"accounts",
+						"api",
+						"organizations",
+						"{{MyMulesoftTestOrgOrgID}}",
+						"environments"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "Sandbox"
+						}
+					]
+				}
 			},
 			"response": []
 		}
