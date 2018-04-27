@@ -324,6 +324,366 @@
 			]
 		},
 		{
+			"name": "Object Store v2",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Regions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7367ac6-c4ef-4c1b-8121-383270126192",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);",
+									"",
+									"// Create a Postman env variable for each CH env",
+									"//jsonResponse.data.forEach(function (envDetails) {",
+									"//    console.log('Env:' + envDetails.name);",
+									"//    postman.setEnvironmentVariable(envDetails.name+\"EnvID\", envDetails.id);",
+									"//});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://object-store-eu-west-2.anypoint.mulesoft.com/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/regions",
+							"protocol": "https",
+							"host": [
+								"object-store-eu-west-2",
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizations",
+								"{{MyMulesoftTestOrgOrgID}}",
+								"regions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Stores",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e59ef9ef-3608-417b-b057-44508e028a2e",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);",
+									"//console.log(jsonResponse.values);",
+									"",
+									"// Create a Postman env variable for each CH env",
+									"jsonResponse.values.forEach(function (osDetails) {",
+									"    console.log('OS:' + osDetails.storeId);",
+									"    postman.setEnvironmentVariable(\"OS_\"+osDetails.storeId, osDetails.storeId);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://object-store-eu-west-2.anypoint.mulesoft.com/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/stores",
+							"protocol": "https",
+							"host": [
+								"object-store-eu-west-2",
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizations",
+								"{{MyMulesoftTestOrgOrgID}}",
+								"environments",
+								"{{SandboxEnvID}}",
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Store",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "34e7d6b6-1cd9-4e44-a8c0-b30039097ecf",
+								"type": "text/javascript",
+								"exec": [
+									"//var jsonResponse = JSON.parse(responseBody);",
+									"",
+									"// Create a Postman env variable for each CH env",
+									"//jsonResponse.data.forEach(function (envDetails) {",
+									"//    console.log('Env:' + envDetails.name);",
+									"//    postman.setEnvironmentVariable(envDetails.name+\"EnvID\", envDetails.id);",
+									"//});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "        {   \"encrypted\": true,\n            \"permanentOsFlag\": false,\n            \"persistent\": true,\n            \"defaultTtlSeconds\": 1209600,\n            \"defaultConfirmationTtlSeconds\": 600\n        }"
+						},
+						"url": {
+							"raw": "https://object-store-eu-west-2.anypoint.mulesoft.com/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/stores/myStore",
+							"protocol": "https",
+							"host": [
+								"object-store-eu-west-2",
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizations",
+								"{{MyMulesoftTestOrgOrgID}}",
+								"environments",
+								"{{SandboxEnvID}}",
+								"stores",
+								"myStore"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Store Keys",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cb415221-156b-41f6-96bd-e56c06ef76db",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);",
+									"",
+									"// Create a Postman env variable for each CH env",
+									"jsonResponse.values.forEach(function (keyDetails) {",
+									"    console.log('Key:' + keyDetails);",
+									"    postman.setEnvironmentVariable(\"OS_Key\" + keyDetails, keyDetails);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://object-store-eu-west-2.anypoint.mulesoft.com/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/stores/{{OS_APP_00189402-object-storev2_DEFAULT_USER_STORE}}/objects",
+							"protocol": "https",
+							"host": [
+								"object-store-eu-west-2",
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizations",
+								"{{MyMulesoftTestOrgOrgID}}",
+								"environments",
+								"{{SandboxEnvID}}",
+								"stores",
+								"{{OS_APP_00189402-object-storev2_DEFAULT_USER_STORE}}",
+								"objects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Store Item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7367ac6-c4ef-4c1b-8121-383270126192",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);",
+									"",
+									"// Create a Postman env variable for each CH env",
+									"//jsonResponse.data.forEach(function (envDetails) {",
+									"//    console.log('Env:' + envDetails.name);",
+									"//    postman.setEnvironmentVariable(envDetails.name+\"EnvID\", envDetails.id);",
+									"//});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://object-store-eu-west-2.anypoint.mulesoft.com/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/stores/{{OS_APP_00189402-object-storev2_DEFAULT_USER_STORE}}/objects/{{OS_KeyTestKey01}}",
+							"protocol": "https",
+							"host": [
+								"object-store-eu-west-2",
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizations",
+								"{{MyMulesoftTestOrgOrgID}}",
+								"environments",
+								"{{SandboxEnvID}}",
+								"stores",
+								"{{OS_APP_00189402-object-storev2_DEFAULT_USER_STORE}}",
+								"objects",
+								"{{OS_KeyTestKey01}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Store Item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7367ac6-c4ef-4c1b-8121-383270126192",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);",
+									"",
+									"// Create a Postman env variable for each CH env",
+									"//jsonResponse.data.forEach(function (envDetails) {",
+									"//    console.log('Env:' + envDetails.name);",
+									"//    postman.setEnvironmentVariable(envDetails.name+\"EnvID\", envDetails.id);",
+									"//});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://object-store-eu-west-2.anypoint.mulesoft.com/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/stores/{{OS_APP_00189402-object-storev2_DEFAULT_USER_STORE}}/objects/{{OS_KeyTestKey01}}",
+							"protocol": "https",
+							"host": [
+								"object-store-eu-west-2",
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"organizations",
+								"{{MyMulesoftTestOrgOrgID}}",
+								"environments",
+								"{{SandboxEnvID}}",
+								"stores",
+								"{{OS_APP_00189402-object-storev2_DEFAULT_USER_STORE}}",
+								"objects",
+								"{{OS_KeyTestKey01}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Get AnypointPlatform Access Token",
 			"event": [
 				{
