@@ -11,6 +11,25 @@
 			"item": [
 				{
 					"name": "Get Cloudhub Applications",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "34022533-a1fb-431c-8a1e-dc41e2b754a6",
+								"type": "text/javascript",
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);",
+									"",
+									"// Create a Postman env variable for each CH app",
+									"jsonResponse.forEach(function (appDetails) {",
+									"    console.log('App:' + appDetails.domain);",
+									"    postman.setEnvironmentVariable(\"App_\"+appDetails.domain, appDetails.domain);",
+									"});",
+									""
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -657,7 +676,7 @@
 						],
 						"body": {},
 						"url": {
-							"raw": "https://object-store-eu-west-2.anypoint.mulesoft.com/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/stores/{{OS_APP_00189402-object-storev2_DEFAULT_USER_STORE}}/objects/{{OS_KeyTestKey01}}",
+							"raw": "https://object-store-eu-west-2.anypoint.mulesoft.com/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/stores/{{OS_myStore}}/objects/key_a/indexes/1",
 							"protocol": "https",
 							"host": [
 								"object-store-eu-west-2",
@@ -673,9 +692,61 @@
 								"environments",
 								"{{SandboxEnvID}}",
 								"stores",
-								"{{OS_APP_00189402-object-storev2_DEFAULT_USER_STORE}}",
+								"{{OS_myStore}}",
 								"objects",
-								"{{OS_KeyTestKey01}}"
+								"key_a",
+								"indexes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Insights",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Insights",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "X-ANYPNT-ORG-ID",
+								"value": "{{MyMulesoftTestOrgOrgID}}"
+							},
+							{
+								"key": "X-ANYPNT-ENV-ID",
+								"value": "{{SandboxEnvID}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseURL}}/insight/v1/products/cloudhub/applications/{{App_sr-echo}}/transactions",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"insight",
+								"v1",
+								"products",
+								"cloudhub",
+								"applications",
+								"{{App_sr-echo}}",
+								"transactions"
 							]
 						}
 					},
