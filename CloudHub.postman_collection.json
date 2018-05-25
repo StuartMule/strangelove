@@ -34,10 +34,6 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
-							{
 								"key": "X-ANYPNT-ORG-ID",
 								"value": "{{MyMulesoftTestOrgOrgID}}"
 							},
@@ -66,10 +62,6 @@
 					"request": {
 						"method": "GET",
 						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
 							{
 								"key": "X-ANYPNT-ORG-ID",
 								"value": "{{MyMulesoftTestOrgOrgID}}"
@@ -109,10 +101,6 @@
 					"request": {
 						"method": "POST",
 						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
 							{
 								"key": "X-ANYPNT-ORG-ID",
 								"value": "{{MyMulesoftTestOrgOrgID}}"
@@ -161,12 +149,7 @@
 					"name": "Organizations",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							}
-						],
+						"header": [],
 						"body": {},
 						"url": {
 							"raw": "https://anypoint.mulesoft.com/mq/admin/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/cba9ad04-c39a-4f92-91fe-aa35d5cd2e48/regions",
@@ -195,12 +178,7 @@
 					"name": "Regions",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							}
-						],
+						"header": [],
 						"body": {},
 						"url": {
 							"raw": "https://anypoint.mulesoft.com/mq/admin/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/cba9ad04-c39a-4f92-91fe-aa35d5cd2e48/regions",
@@ -229,12 +207,7 @@
 					"name": "Destinations",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							}
-						],
+						"header": [],
 						"body": {},
 						"url": {
 							"raw": "https://anypoint.mulesoft.com/mq/admin/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/regions/us-east-1/destinations",
@@ -265,12 +238,7 @@
 					"name": "Stats-1",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							}
-						],
+						"header": [],
 						"body": {},
 						"url": {
 							"raw": "https://anypoint.mulesoft.com/mq/stats/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/regions/us-east-1/queues?destinationIds=myMQ",
@@ -307,12 +275,7 @@
 					"name": "Stats-2",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							}
-						],
+						"header": [],
 						"body": {},
 						"url": {
 							"raw": "https://anypoint.mulesoft.com/mq/stats/api/v1/organizations/{{MyMulesoftTestOrgOrgID}}/environments/{{SandboxEnvID}}/regions/us-east-1/queues/Leverage.NGOTC.Claim.Req.LE",
@@ -371,10 +334,6 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
-							{
 								"key": "Cache-Control",
 								"value": "no-cache"
 							}
@@ -426,10 +385,6 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
-							{
 								"key": "Cache-Control",
 								"value": "no-cache"
 							}
@@ -479,15 +434,8 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PUT",
 						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
 							{
 								"key": "Cache-Control",
 								"value": "no-cache"
@@ -549,10 +497,6 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
-							{
 								"key": "Cache-Control",
 								"value": "no-cache"
 							}
@@ -606,10 +550,6 @@
 					"request": {
 						"method": "GET",
 						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
 							{
 								"key": "Cache-Control",
 								"value": "no-cache"
@@ -666,10 +606,6 @@
 						"method": "PUT",
 						"header": [
 							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
-							{
 								"key": "Cache-Control",
 								"value": "no-cache"
 							}
@@ -713,10 +649,6 @@
 					"request": {
 						"method": "POST",
 						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
 							{
 								"key": "X-ANYPNT-ORG-ID",
 								"value": "{{MyMulesoftTestOrgOrgID}}"
@@ -856,12 +788,7 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{accessToken}}"
-					}
-				],
+				"header": [],
 				"body": {},
 				"url": {
 					"raw": "{{baseURL}}/accounts/api/me",
@@ -901,10 +828,6 @@
 			"request": {
 				"method": "GET",
 				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{accessToken}}"
-					},
 					{
 						"key": "Cache-Control",
 						"value": "no-cache"
@@ -950,12 +873,7 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{accessToken}}"
-					}
-				],
+				"header": [],
 				"body": {},
 				"url": {
 					"raw": "{{baseURL}}/apiplatform/repository/v2/organizations/{{MyMulesoftTestOrgOrgID}}/apis",
@@ -991,10 +909,6 @@
 			"request": {
 				"method": "GET",
 				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{accessToken}}"
-					},
 					{
 						"key": "X-ANYPNT-ENV-ID",
 						"value": "{{SandboxEnvID}}"
@@ -1035,12 +949,7 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{accessToken}}"
-					}
-				],
+				"header": [],
 				"body": {},
 				"url": {
 					"raw": "{{baseURL}}/apiplatform/repository/v2/organizations/{{MyMulesoftTestOrgOrgID}}/apis/{{Rest API Demo}}",
@@ -1064,12 +973,7 @@
 			"name": "Show API details for the version",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{accessToken}}"
-					}
-				],
+				"header": [],
 				"body": {},
 				"url": {
 					"raw": "{{baseURL}}/apiplatform/repository/v2/organizations/{{MyMulesoftTestOrgOrgID}}/apis/{{Rest API Demo}}/versions/{{apiVersionId}}",
@@ -1095,12 +999,7 @@
 			"name": "Show files for the API version",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{accessToken}}"
-					}
-				],
+				"header": [],
 				"body": {},
 				"url": {
 					"raw": "{{baseURL}}/apiplatform/repository/v2/organizations/{{MyMulesoftTestOrgOrgID}}/apis/{{Rest API Demo}}/versions/{{apiVersionId}}/files",
@@ -1140,10 +1039,6 @@
 			"request": {
 				"method": "GET",
 				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{accessToken}}"
-					},
 					{
 						"key": "X-ANYPNT-ENV-ID",
 						"value": "{{SandboxEnvID}}"
@@ -1185,10 +1080,6 @@
 			"request": {
 				"method": "POST",
 				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer {{accessToken}}"
-					},
 					{
 						"key": "Content-Type",
 						"value": "application/json"
@@ -1244,10 +1135,6 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Authorization",
-						"value": "Bearer {{accessToken}}"
-					},
-					{
 						"key": "Cache-Control",
 						"value": "no-cache"
 					}
@@ -1274,6 +1161,38 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "33dafc23-0a37-40a2-aae9-7012bfb1d456",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7cb1b8f8-8337-40e3-aba5-ea98af6f1483",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
