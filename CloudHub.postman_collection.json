@@ -687,6 +687,71 @@
 			]
 		},
 		{
+			"name": "Audit Logging",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Audit Log",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6121b290-27ef-4b68-a488-a89a3e08c301",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1e2d78a4-0fb8-47c7-ac25-ceb997634cce",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"startDate\":\"2018-01-15T00:00:00\"\n}"
+						},
+						"url": {
+							"raw": "https://audit-log-query.anypoint.mulesoft.com/v1/organizations/{{MyMulesoftTestOrgOrgID}}/query",
+							"protocol": "https",
+							"host": [
+								"audit-log-query",
+								"anypoint",
+								"mulesoft",
+								"com"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"{{MyMulesoftTestOrgOrgID}}",
+								"query"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Get AnypointPlatform Access Token",
 			"event": [
 				{
@@ -769,19 +834,23 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "59d1b3ce-6755-4bba-a978-c834862f9247",
+						"id": "5d6ef9d4-7120-4bd2-ada1-a8443eb4ace0",
 						"type": "text/javascript",
 						"exec": [
 							"var jsonResponse = JSON.parse(responseBody);",
 							"//console.log('Org Name: ' + jsonResponse.user.organization.name);",
 							"//postman.setEnvironmentVariable(\"orgID\", jsonResponse.user.organization.id);",
 							"",
+							"postman.setEnvironmentVariable(\"MyUserID\", jsonResponse.user.id);",
+							"",
 							"// Create a Postman env variable for each CH env",
 							"jsonResponse.user.memberOfOrganizations.forEach(function (orgDetails) {",
 							"//    console.log('Org:' + orgDetails.name);",
 							"    postman.setEnvironmentVariable(orgDetails.name+\"OrgID\", orgDetails.id);",
 							"});",
-							""
+							"",
+							"// Save access token expiry",
+							"postman.setEnvironmentVariable(\"accessTokenExpiresIn\", jsonResponse.access_token.expires_in);"
 						]
 					}
 				}
@@ -805,6 +874,52 @@
 			"response": []
 		},
 		{
+			"name": "Get User Details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22b3da5f-010d-4db9-9613-c692837e750b",
+						"type": "text/javascript",
+						"exec": [
+							"//var jsonResponse = JSON.parse(responseBody);",
+							"//console.log('Org Name: ' + jsonResponse.user.organization.name);",
+							"//postman.setEnvironmentVariable(\"orgID\", jsonResponse.user.organization.id);",
+							"",
+							"// Create a Postman env variable for each CH env",
+							"//jsonResponse.user.memberOfOrganizations.forEach(function (orgDetails) {",
+							"//    console.log('Org:' + orgDetails.name);",
+							"//    postman.setEnvironmentVariable(orgDetails.name+\"OrgID\", orgDetails.id);",
+							"//});",
+							"",
+							"// Save access token expiry",
+							"//postman.setEnvironmentVariable(\"accessTokenExpiresIn\", jsonResponse.access_token.expires_in);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{baseURL}}/accounts/api/organizations/{{MyMulesoftTestOrgOrgID}}/users/661c78c1-b2b2-4089-ab27-0e548462e00f",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"accounts",
+						"api",
+						"organizations",
+						"{{MyMulesoftTestOrgOrgID}}",
+						"users",
+						"661c78c1-b2b2-4089-ab27-0e548462e00f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Environment Details",
 			"event": [
 				{
@@ -821,6 +936,63 @@
 							"    postman.setEnvironmentVariable(envDetails.name+\"EnvID\", envDetails.id);",
 							"});",
 							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "efd53302-fe68-444d-9556-48d9af3e46a1",
+						"type": "text/javascript",
+						"exec": [
+							"// Get and decrypt the password",
+							"var bytes  = CryptoJS.AES.decrypt(postman.getEnvironmentVariable('encPassword'), postman.getEnvironmentVariable('RSAKey'));",
+							"var plaintext = bytes.toString(CryptoJS.enc.Utf8);",
+							"",
+							"// Setup the request to get a new bearer token",
+							"const echoPostRequest = {",
+							"  url: postman.getEnvironmentVariable('baseURL') + '/accounts/login',",
+							"  method: 'POST',",
+							"  header: 'Content-Type: application/x-www-form-urlencoded',",
+							"  body: {",
+							"    mode: 'urlencoded',",
+							"    urlencoded: [",
+							"        {key: \"username\", value: postman.getEnvironmentVariable('clearUsername')},",
+							"        {key: \"password\", value: plaintext}",
+							"    ]",
+							"  }",
+							"};",
+							"",
+							"",
+							"var getToken = true;",
+							"",
+							"if (!pm.environment.get('accessTokenExpiresIn') || ",
+							"    !pm.environment.get('accessToken')) {",
+							"    console.log('Token or expiry  are missing')",
+							"    ",
+							"} else if (pm.environment.get('accessTokenExpiresIn') <= 1015) { // (new Date()).getTime()) {",
+							"    console.log('Token is expired')",
+							"    ",
+							"} else {",
+							"    getToken = false;",
+							"    console.log('Token and expiry date are all good');",
+							"}",
+							"",
+							"if (getToken === true) {",
+							"    pm.sendRequest(echoPostRequest, function (err, res) {",
+							"    console.log(err ? err : res.json());",
+							"        if (err === null) {",
+							"            console.log('Saving the token and expiry date')",
+							"            var responseJson = res.json();",
+							"            //console.log('response is:' + responseJson);",
+							"            pm.environment.set('accessToken', responseJson.access_token)",
+							"    ",
+							"            var expiryDate = new Date();",
+							"            expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);",
+							"            pm.environment.set('accessTokenExpiresIn', expiryDate.getTime());",
+							"        }",
+							"    });",
+							"}"
 						]
 					}
 				}
